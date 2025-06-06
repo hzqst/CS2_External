@@ -48,16 +48,16 @@ public:
 
 namespace BoneJointList
 {
-	// ¼¹¹Ç
+	// ï¿½ï¿½ï¿½ï¿½
 	inline std::list<DWORD> Trunk = { head,neck_0,spine_2, pelvis};
-	// ×ó±Û
+	// ï¿½ï¿½ï¿½
 	inline std::list<DWORD> LeftArm = { neck_0,  arm_upper_L, arm_lower_L, hand_L };
-	// ÓÒ±Û
+	// ï¿½Ò±ï¿½
 	inline std::list<DWORD> RightArm = { neck_0, arm_upper_R,arm_lower_R, hand_R };
-	// ×óÍÈ	
+	// ï¿½ï¿½ï¿½ï¿½	
 	inline std::list<DWORD> LeftLeg = { pelvis, leg_upper_L , leg_lower_L, ankle_L };
-	// ÓÒÍÈ
+	// ï¿½ï¿½ï¿½ï¿½
 	inline std::list<DWORD> RightLeg = { pelvis, leg_upper_R , leg_lower_R, ankle_R };
-	// ×ÜÁÐ±í
+	// ï¿½ï¿½ï¿½Ð±ï¿½
 	inline std::vector<std::list<DWORD>> List = { Trunk, LeftArm, RightArm, LeftLeg, RightLeg };
 }

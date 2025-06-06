@@ -12,7 +12,7 @@
 */
 
 /// <summary>
-/// ½ø³Ì×´Ì¬Âë
+/// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½
 /// </summary>
 enum StatusCode
 {
@@ -23,7 +23,7 @@ enum StatusCode
 };
 
 /// <summary>
-/// ½ø³Ì¹ÜÀí
+/// ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
 /// </summary>
 class ProcessManager 
 {
@@ -45,10 +45,10 @@ public:
 	}
 
 	/// <summary>
-	/// ¸½¼Ó
+	/// ï¿½ï¿½ï¿½ï¿½
 	/// </summary>
-	/// <param name="ProcessName">½ø³ÌÃû</param>
-	/// <returns>½ø³Ì×´Ì¬Âë</returns>
+	/// <param name="ProcessName">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+	/// <returns>ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½</returns>
 	StatusCode Attach(std::string ProcessName)
 	{
 		ProcessID = this->GetProcessID(ProcessName);
@@ -66,7 +66,7 @@ public:
 	}
 
 	/// <summary>
-	/// È¡Ïû¸½¼Ó
+	/// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/// </summary>
 	void Detach()
 	{
@@ -79,9 +79,9 @@ public:
 	}
 
 	/// <summary>
-	/// ÅÐ¶Ï½ø³ÌÊÇ·ñ¼¤»î×´Ì¬
+	/// ï¿½Ð¶Ï½ï¿½ï¿½ï¿½ï¿½Ç·ñ¼¤»ï¿½×´Ì¬
 	/// </summary>
-	/// <returns>ÊÇ·ñ¼¤»î×´Ì¬</returns>
+	/// <returns>ï¿½Ç·ñ¼¤»ï¿½×´Ì¬</returns>
 	bool IsActive()
 	{
 		if (!Attached)
@@ -92,13 +92,13 @@ public:
 	}
 
 	/// <summary>
-	/// ¶ÁÈ¡½ø³ÌÄÚ´æ
+	/// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 	/// </summary>
-	/// <typeparam name="ReadType">¶ÁÈ¡ÀàÐÍ</typeparam>
-	/// <param name="Address">¶ÁÈ¡µØÖ·</param>
-	/// <param name="Value">·µ»ØÊý¾Ý</param>
-	/// <param name="Size">¶ÁÈ¡´óÐ¡</param>
-	/// <returns>ÊÇ·ñ¶ÁÈ¡³É¹¦</returns>
+	/// <typeparam name="ReadType">ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½</typeparam>
+	/// <param name="Address">ï¿½ï¿½È¡ï¿½ï¿½Ö·</param>
+	/// <param name="Value">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+	/// <param name="Size">ï¿½ï¿½È¡ï¿½ï¿½Ð¡</param>
+	/// <returns>ï¿½Ç·ï¿½ï¿½È¡ï¿½É¹ï¿½</returns>
 	template <typename ReadType>
 	bool ReadMemory(DWORD64 Address, ReadType& Value, int Size)
 	{
@@ -122,13 +122,13 @@ public:
 	}
 
 	/// <summary>
-	/// Ð´Èë½ø³ÌÄÚ´æ
+	/// Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 	/// </summary>
-	/// <typeparam name="ReadType">Ð´ÈëÀàÐÍ</typeparam>
-	/// <param name="Address">Ð´ÈëµØÖ·</param>
-	/// <param name="Value">Ð´ÈëÊý¾Ý</param>
-	/// <param name="Size">Ð´Èë´óÐ¡</param>
-	/// <returns>ÊÇ·ñÐ´Èë³É¹¦</returns>
+	/// <typeparam name="ReadType">Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</typeparam>
+	/// <param name="Address">Ð´ï¿½ï¿½ï¿½Ö·</param>
+	/// <param name="Value">Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+	/// <param name="Size">Ð´ï¿½ï¿½ï¿½Ð¡</param>
+	/// <returns>ï¿½Ç·ï¿½Ð´ï¿½ï¿½É¹ï¿½</returns>
 	template <typename ReadType>
 	bool WriteMemory(DWORD64 Address, ReadType& Value, int Size)
 	{
@@ -152,12 +152,12 @@ public:
 	}
 
 	/// <summary>
-	/// ÌØÕ÷ÂëËÑË÷
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/// </summary>
-	/// <param name="Signature">ÌØÕ÷Âë</param>
-	/// <param name="StartAddress">ÆðÊ¼µØÖ·</param>
-	/// <param name="EndAddress">½áÊøµØÖ·</param>
-	/// <returns>Æ¥ÅäÌØÕ÷½á¹û</returns>
+	/// <param name="Signature">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+	/// <param name="StartAddress">ï¿½ï¿½Ê¼ï¿½ï¿½Ö·</param>
+	/// <param name="EndAddress">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·</param>
+	/// <returns>Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</returns>
 	std::vector<DWORD64> SearchMemory(const std::string& Signature, DWORD64 StartAddress, DWORD64 EndAddress, int SearchNum = 1);
 
 	DWORD64 TraceAddress(DWORD64 BaseAddress, std::vector<DWORD> Offsets)

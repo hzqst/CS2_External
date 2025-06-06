@@ -46,10 +46,10 @@ namespace MenuConfig
 	inline int TriggerHotKey = 0;
 	inline int TriggerMode = 0;
 	inline bool Pressed = false;// for toggle mode
-	inline bool Shoot = false;// so that it doesn’t aim when the trigger hits
+	inline bool Shoot = false;// so that it doesnï¿½t aim when the trigger hits
 
 	inline bool TeamCheck = true;
-	inline bool OBSBypass = true;
+	inline bool OBSBypass = false;
 
 	inline bool BunnyHop = false;
 	
