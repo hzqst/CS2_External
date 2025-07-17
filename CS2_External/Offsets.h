@@ -28,7 +28,7 @@ namespace Offset
 		DWORD MaxHealth = 0x340;
 		DWORD CurrentHealth = 0x344;
 		DWORD GameSceneNode = 0x328;
-		DWORD BoneArray = 0x1E0;
+		DWORD BoneArray = 0x1F0;
 		DWORD angEyeAngles = 0x124C;
 		DWORD vecLastClipCameraPos = 0x1384;
 		DWORD pClippingWeapon = 0x13A0;
