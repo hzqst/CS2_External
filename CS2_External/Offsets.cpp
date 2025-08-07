@@ -50,20 +50,19 @@ bool Offset::UpdateOffsets()
 
 	Offset::GlobalVars = TempAddress - ClientDLL;
 
-	TempAddress = SearchOffsets(Offset::Signatures::ViewAngles, ClientDLL);
+	TempAddress = SearchOffsets(Offset::Signatures::ClientInput, ClientDLL);
 	if (TempAddress == 0)
 		return false;
 	if (!ProcessMgr.ReadMemory(TempAddress, TempAddress))
 		return false;
 
-	Offset::ViewAngle = TempAddress + 0x3D0 - ClientDLL;
-	//0x01A733C0
-	//0x01a79130
-	TempAddress = SearchOffsets(Offset::Signatures::LocalPlayerPawn, ClientDLL);
+	Offset::ViewAngle = TempAddress + Offset::Signatures::ClientInput_ViewAngle - ClientDLL;
+
+	TempAddress = SearchOffsets(Offset::Signatures::Prediction, ClientDLL);
 	if (TempAddress == 0)
 		return false;
 
-	Offset::LocalPlayerPawn = TempAddress + 0x180 - ClientDLL;
+	Offset::LocalPlayerPawn = TempAddress + Offset::Signatures::Prediction_LocalPlayerPawn - ClientDLL;
 
 	//TempAddress = SearchOffsets(Offset::Signatures::ForceJump, ClientDLL);
 	//if (TempAddress == 0)

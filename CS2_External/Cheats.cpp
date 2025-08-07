@@ -275,7 +275,7 @@ void Cheats::Run()
 		if (!Entity.UpdatePawn(Entity.Pawn.Address))
 			continue;
 
-		if (MenuConfig::TeamCheck && Entity.Controller.TeamID == LocalEntity.Controller.TeamID)
+		if (MenuConfig::TeamCheck && Entity.Controller.m_iTeamNum == LocalEntity.Controller.m_iTeamNum)
 			continue;
 
 		if (!Entity.IsAlive())
@@ -283,7 +283,7 @@ void Cheats::Run()
 
 		// Add entity to radar
 		if (MenuConfig::ShowRadar)
-			Radar.AddPoint(LocalEntity.Pawn.Pos, LocalEntity.Pawn.ViewAngle.y, Entity.Pawn.Pos, ImColor(237, 85, 106, 200), MenuConfig::RadarType, Entity.Pawn.ViewAngle.y);
+			Radar.AddPoint(LocalEntity.Pawn.m_vOldOrigin, LocalEntity.Pawn.ViewAngle.y, Entity.Pawn.m_vOldOrigin, ImColor(237, 85, 106, 200), MenuConfig::RadarType, Entity.Pawn.ViewAngle.y);
 
 		if (!Entity.IsInScreen())
 			continue;
@@ -306,8 +306,8 @@ void Cheats::Run()
 			MaxAimDistance = DistanceToSight;
 			// From: https://github.com/redbg/CS2-Internal/blob/fc8e64430176a62f8800b7467884806708a865bb/src/include/Cheats.hpp#L129
 			if (!MenuConfig::VisibleCheck ||
-				Entity.Pawn.bSpottedByMask & (DWORD64(1) << (LocalPlayerControllerIndex)) ||
-				LocalEntity.Pawn.bSpottedByMask & (DWORD64(1) << (i)))
+				Entity.Pawn.m_bSpottedByMask & (DWORD64(1) << (LocalPlayerControllerIndex)) ||
+				LocalEntity.Pawn.m_bSpottedByMask & (DWORD64(1) << (i)))
 			{
 				AimPos = Entity.GetBone().BonePosList[MenuConfig::AimPositionIndex].Pos;
 				if (MenuConfig::AimPositionIndex == BONEINDEX::head)
@@ -361,7 +361,7 @@ void Cheats::Run()
 				HealthBarPos = { Rect.x + Rect.z / 2 - 70 / 2,Rect.y - 13 };
 				HealthBarSize = { 70,8 };
 			}
-			Render::DrawHealthBar(EntityAddress, 100, Entity.Pawn.Health, HealthBarPos, HealthBarSize, MenuConfig::HealthBarType);
+			Render::DrawHealthBar(EntityAddress, 100, Entity.Pawn.m_iHealth, HealthBarPos, HealthBarSize, MenuConfig::HealthBarType);
 		}
 
 		// Draw weaponName

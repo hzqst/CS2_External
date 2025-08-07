@@ -3,7 +3,7 @@
 void TriggerBot::Run(const CEntity& LocalEntity)
 {
 	DWORD uHandle = 0;
-	if (!ProcessMgr.ReadMemory<DWORD>(LocalEntity.Pawn.Address + Offset::Pawn.iIDEntIndex, uHandle))
+	if (!ProcessMgr.ReadMemory<DWORD>(LocalEntity.Pawn.Address + Offset::Pawn.m_iIDEntIndex, uHandle))
 		return;
 	if (uHandle == -1)
 		return;
@@ -24,9 +24,9 @@ void TriggerBot::Run(const CEntity& LocalEntity)
 	bool AllowShoot = false;
 
 	if (MenuConfig::TeamCheck)
-		AllowShoot = LocalEntity.Pawn.TeamID != Entity.Pawn.TeamID && Entity.Pawn.Health > 0;
+		AllowShoot = LocalEntity.Pawn.m_iTeamNum != Entity.Pawn.m_iTeamNum && Entity.Pawn.m_iHealth > 0;
 	else
-		AllowShoot = Entity.Pawn.Health > 0;
+		AllowShoot = Entity.Pawn.m_iHealth > 0;
 
 	if (!AllowShoot)
 		return;

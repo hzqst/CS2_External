@@ -14,9 +14,9 @@ class PlayerController
 {
 public:
 	DWORD64 Address = 0;
-	int TeamID = 0;
-	int Health = 0;
-	int AliveStatus = 0;
+	int m_iTeamNum = 0;
+	int m_iHealth = 0;
+	int m_bPawnIsAlive = 0;
 	DWORD Pawn = 0;
 	std::string PlayerName;
 public:
@@ -39,18 +39,18 @@ public:
 	DWORD64 Address = 0;
 	CBone BoneData;
 	Vec2 ViewAngle;
-	Vec3 Pos;
+	Vec3 m_vOldOrigin;
 	Vec2 ScreenPos;
 	Vec3 CameraPos;
 	std::string WeaponName;
 	DWORD ShotsFired;
 	Vec2 AimPunchAngle;
 	C_UTL_VECTOR AimPunchCache;
-	int Health;
-	int TeamID;
+	int m_iHealth;
+	int m_iTeamNum;
 	int Fov;
-	DWORD64 bSpottedByMask;
-	int fFlags;
+	DWORD64 m_bSpottedByMask;
+	int m_fFlags;
 public:
 	bool GetPos();
 	bool GetViewAngle();
@@ -66,7 +66,7 @@ public:
 	bool GetAimPunchCache();
 
 	constexpr bool HasFlag(const Flags Flag) const noexcept {
-		return fFlags & (int)Flag;
+		return m_fFlags & (int)Flag;
 	}
 };
 
@@ -76,13 +76,11 @@ public:
 	PlayerController Controller;
 	PlayerPawn Pawn;
 public:
-	// 更新数据
+
 	bool UpdateController(const DWORD64& PlayerControllerAddress);
 	bool UpdatePawn(const DWORD64& PlayerPawnAddress);
-	// 是否存活
+
 	bool IsAlive();
-	// 是否在屏幕内
 	bool IsInScreen();
-	// 获取骨骼数据
 	CBone GetBone() const;
 };

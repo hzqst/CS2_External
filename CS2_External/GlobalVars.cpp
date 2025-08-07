@@ -18,15 +18,7 @@ bool globalvars::UpdateGlobalvars()
 		return false;
 	if (!this->GetIntervalPerTick())
 		return false;
-	if (!this->GetIntervalPerTick2())
-		return false;
 	if (!this->GetcurrentTime())
-		return false;
-	if (!this->GetcurrentTime2())
-		return false;
-	if (!this->GetCurrentNetchan())
-		return false;
-	if (!this->GetCurrentMap())
 		return false;
 	if (!this->GetCurrentMapName())
 		return false;
@@ -59,29 +51,9 @@ bool globalvars::GetIntervalPerTick()
 	return GetDataAddressWithOffset<float>(this->address, Offset::GlobalVar.IntervalPerTick, this->g_fIntervalPerTick);
 }
 
-bool globalvars::GetIntervalPerTick2()
-{
-	return GetDataAddressWithOffset<float>(this->address, Offset::GlobalVar.IntervalPerTick2, this->g_fIntervalPerTick2);
-}
-
 bool globalvars::GetcurrentTime()
 {
 	return GetDataAddressWithOffset<float>(this->address, Offset::GlobalVar.CurrentTime, this->g_fCurrentTime);
-}
-
-bool globalvars::GetcurrentTime2()
-{
-	return GetDataAddressWithOffset<float>(this->address, Offset::GlobalVar.CurrentTime2, this->g_fCurrentTime2);
-}
-
-bool globalvars::GetCurrentNetchan()
-{
-	return GetDataAddressWithOffset<void*>(this->address, Offset::GlobalVar.CurrentNetchan, this->g_vCurrentNetchan);
-}
-
-bool globalvars::GetCurrentMap()
-{
-	return GetDataAddressWithOffset<char*>(this->address, Offset::GlobalVar.CurrentMap, this->g_cCurrentMap);
 }
 
 bool globalvars::GetCurrentMapName()

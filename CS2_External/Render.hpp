@@ -50,7 +50,7 @@ namespace Render
 
 	void DrawDistance(const CEntity& LocalEntity, CEntity& Entity, ImVec4 Rect)
 	{
-		int distance = static_cast<int>(Entity.Pawn.Pos.DistanceTo(LocalEntity.Pawn.Pos) / 100);
+		int distance = static_cast<int>(Entity.Pawn.m_vOldOrigin.DistanceTo(LocalEntity.Pawn.m_vOldOrigin) / 100);
 		std::string dis_str = Format("%im", distance);
 		Gui.StrokeText(dis_str, { Rect.x + Rect.z + 4, Rect.y }, ImColor(255, 255, 255, 255), 14, false);
 	}
@@ -70,7 +70,7 @@ namespace Render
 		Gui.RectangleFilled(Vec2{ Pos.x + 6, Pos.y }, Vec2{ 17, 3 }, Color);
 	}
 
-	// ·½¿ò»æÖÆ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ImVec4 Get2DBox(const CEntity& Entity)
 	{
 		BoneJointPos Head = Entity.GetBone().BonePosList[BONEINDEX::head];
@@ -84,7 +84,7 @@ namespace Render
 		return ImVec4{ Pos.x,Pos.y,Size.x,Size.y };
 	}
 
-	// ¹Ç÷À»æÖÆ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void DrawBone(const CEntity& Entity, ImColor Color, float Thickness)
 	{
 		BoneJointPos Previous, Current;
@@ -110,7 +110,7 @@ namespace Render
 		}
 	}
 
-	// ³¯Ïò»æÖÆ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void ShowLosLine(const CEntity& Entity, const float Length, ImColor Color, float Thickness)
 	{
 		Vec2 StartPoint, EndPoint;
@@ -131,7 +131,7 @@ namespace Render
 		Gui.Line(StartPoint, EndPoint, Color, Thickness);
 	}
 
-	// 2D¹Ç÷À¿ò»æÖÆ
+	// 2Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ImVec4 Get2DBoneRect(const CEntity& Entity)
 	{
 		Vec2 Min, Max, Size;
@@ -157,42 +157,42 @@ namespace Render
 	private:
 		using TimePoint_ = std::chrono::steady_clock::time_point;
 	private:
-		// ÏÔÊ¾±¸·ÝÑªÌõÊ±¼ä(ms)
+		// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½Ê±ï¿½ï¿½(ms)
 		const int ShowBackUpHealthDuration = 500;
-		// ×î´óÑªÁ¿
+		// ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 		float MaxHealth = 0.f;
-		// µ±Ç°ÑªÁ¿
+		// ï¿½ï¿½Ç°Ñªï¿½ï¿½
 		float CurrentHealth = 0.f;
-		// ×î½ü±¸·ÝÑªÁ¿´óÐ¡
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½Ð¡
 		float LastestBackupHealth = 0.f;
-		// ÑªÌõ×ø±ê
+		// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ImVec2 RectPos{};
-		// ÑªÌõ´óÐ¡
+		// Ñªï¿½ï¿½ï¿½ï¿½Ð¡
 		ImVec2 RectSize{};
-		// ÕýÔÚÏÔÊ¾±¸·ÝÑªÁ¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 		bool InShowBackupHealth = false;
-		// ÏÔÊ¾±¸·ÝÑªÁ¿ÆðÊ¼Ê±¼ä´Á
+		// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½
 		TimePoint_ BackupHealthTimePoint{};
 	public:
 		HealthBar() {}
-		// ºáÏò
+		// ï¿½ï¿½ï¿½ï¿½
 		void DrawHealthBar_Horizontal(float MaxHealth, float CurrentHealth, ImVec2 Pos, ImVec2 Size);
-		// ×ÝÏò
+		// ï¿½ï¿½ï¿½ï¿½
 		void DrawHealthBar_Vertical(float MaxHealth, float CurrentHealth, ImVec2 Pos, ImVec2 Size);
 	private:
-		// ÑÕÉ«»º¶¯
+		// ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 		ImColor Mix(ImColor Col_1, ImColor Col_2, float t);
-		// µÚÒ»½×¶ÎÑªÌõÑÕÉ« 0.5-1
+		// ï¿½ï¿½Ò»ï¿½×¶ï¿½Ñªï¿½ï¿½ï¿½ï¿½É« 0.5-1
 		ImColor FirstStageColor = ImColor(96, 246, 113, 220);
-		// µÚ¶þ½×¶ÎÑªÌõÑÕÉ« 0.5-0.2
+		// ï¿½Ú¶ï¿½ï¿½×¶ï¿½Ñªï¿½ï¿½ï¿½ï¿½É« 0.5-0.2
 		ImColor SecondStageColor = ImColor(247, 214, 103, 220);
-		// µÚÈý½×¶ÎÑªÌõÑÕÉ« 0.2-0.0
+		// ï¿½ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ñªï¿½ï¿½ï¿½ï¿½É« 0.2-0.0
 		ImColor ThirdStageColor = ImColor(255, 95, 95, 220);
-		// ±¸·ÝÑªÌõÑÕÉ«
+		// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½É«
 		ImColor BackupHealthColor = ImColor(255, 255, 255, 220);
-		// ±ß¿òÑÕÉ«
+		// ï¿½ß¿ï¿½ï¿½ï¿½É«
 		ImColor FrameColor = ImColor(45, 45, 45, 220);
-		// ±³¾°ÑÕÉ«
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 		ImColor BackGroundColor = ImColor(90, 90, 90, 220);
 	};
 
@@ -210,26 +210,26 @@ namespace Render
 		this->RectPos = Pos;
 		this->RectSize = Size;
 
-		// Õ¼±È
+		// Õ¼ï¿½ï¿½
 		float Proportion = CurrentHealth / MaxHealth;
-		// ÑªÁ¿Ìõ¿í¶È
+		// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		float Width = RectSize.x * Proportion;
-		// ÑªÁ¿ÌõÑÕÉ«
+		// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 		ImColor Color;
 
-		// ±³¾°
+		// ï¿½ï¿½ï¿½ï¿½
 		DrawList->AddRectFilled(RectPos,
 			{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 			BackGroundColor, 5, 15);
 
-		// ÑÕÉ«ÇÐ»»
+		// ï¿½ï¿½É«ï¿½Ð»ï¿½
 		float Color_Lerp_t = pow(Proportion, 2.5);
 		if (InRange(Proportion, 0.5, 1))
 			Color = Mix(FirstStageColor, SecondStageColor, Color_Lerp_t * 3 - 1);
 		else
 			Color = Mix(SecondStageColor, ThirdStageColor, Color_Lerp_t * 4);
 
-		// ¸üÐÂ×î½ü±¸·ÝÑªÁ¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 		if (LastestBackupHealth == 0
 			|| LastestBackupHealth < CurrentHealth)
 			LastestBackupHealth = CurrentHealth;
@@ -245,36 +245,36 @@ namespace Render
 			std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
 			if (CurrentTime - BackupHealthTimePoint > std::chrono::milliseconds(ShowBackUpHealthDuration))
 			{
-				// ³¬Ê±¾ÍÍ£Ö¹ÏÔÊ¾±¸·ÝÑªÁ¿£¬²¢ÇÒ¸üÐÂ×î½ü±¸·ÝÑªÁ¿
+				// ï¿½ï¿½Ê±ï¿½ï¿½Í£Ö¹ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 				LastestBackupHealth = CurrentHealth;
 				InShowBackupHealth = false;
 			}
 
 			if (InShowBackupHealth)
 			{
-				// ±¸·ÝÑªÁ¿»æÖÆ¿í¶È
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½
 				float BackupHealthWidth = LastestBackupHealth / MaxHealth * RectSize.x;
-				// ±¸·ÝÑªÁ¿alpha½¥±ä
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½alphaï¿½ï¿½ï¿½ï¿½
 				float BackupHealthColorAlpha = 1 - 0.95 * (std::chrono::duration_cast<std::chrono::milliseconds>(CurrentTime - BackupHealthTimePoint).count() / (float)ShowBackUpHealthDuration);
 				ImColor BackupHealthColorTemp = BackupHealthColor;
 				BackupHealthColorTemp.Value.w = BackupHealthColorAlpha;
-				// ±¸·ÝÑªÁ¿¿í¶È»º¶¯
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½
 				float BackupHealthWidth_Lerp = 1 * (std::chrono::duration_cast<std::chrono::milliseconds>(CurrentTime - BackupHealthTimePoint).count() / (float)ShowBackUpHealthDuration);
 				BackupHealthWidth_Lerp *= (BackupHealthWidth - Width);
 				BackupHealthWidth -= BackupHealthWidth_Lerp;
-				// ±¸·ÝÑªÌõ
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 				DrawList->AddRectFilled(RectPos,
 					{ RectPos.x + BackupHealthWidth,RectPos.y + RectSize.y },
 					BackupHealthColorTemp, 5);
 			}
 		}
 
-		// ÑªÌõ
+		// Ñªï¿½ï¿½
 		DrawList->AddRectFilled(RectPos,
 			{ RectPos.x + Width,RectPos.y + RectSize.y },
 			Color, 5);
 
-		// ±ß¿ò
+		// ï¿½ß¿ï¿½
 		DrawList->AddRect(RectPos,
 			{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 			FrameColor, 5, 15, 1);
@@ -294,26 +294,26 @@ namespace Render
 		this->RectPos = Pos;
 		this->RectSize = Size;
 
-		// Õ¼±È
+		// Õ¼ï¿½ï¿½
 		float Proportion = CurrentHealth / MaxHealth;
-		// ÑªÁ¿Ìõ¸ß¶È
+		// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 		float Height = RectSize.y * Proportion;
-		// ÑªÁ¿ÌõÑÕÉ«
+		// Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 		ImColor Color;
 
-		// ±³¾°
+		// ï¿½ï¿½ï¿½ï¿½
 		DrawList->AddRectFilled(RectPos,
 			{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 			BackGroundColor, 5, 15);
 
-		// ÑÕÉ«ÇÐ»»
+		// ï¿½ï¿½É«ï¿½Ð»ï¿½
 		float Color_Lerp_t = pow(Proportion, 2.5);
 		if (InRange(Proportion, 0.5, 1))
 			Color = Mix(FirstStageColor, SecondStageColor, Color_Lerp_t * 3 - 1);
 		else
 			Color = Mix(SecondStageColor, ThirdStageColor, Color_Lerp_t * 4);
 
-		// ¸üÐÂ×î½ü±¸·ÝÑªÁ¿
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 		if (LastestBackupHealth == 0
 			|| LastestBackupHealth < CurrentHealth)
 			LastestBackupHealth = CurrentHealth;
@@ -329,36 +329,36 @@ namespace Render
 			std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
 			if (CurrentTime - BackupHealthTimePoint > std::chrono::milliseconds(ShowBackUpHealthDuration))
 			{
-				// ³¬Ê±¾ÍÍ£Ö¹ÏÔÊ¾±¸·ÝÑªÁ¿£¬²¢ÇÒ¸üÐÂ×î½ü±¸·ÝÑªÁ¿
+				// ï¿½ï¿½Ê±ï¿½ï¿½Í£Ö¹ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 				LastestBackupHealth = CurrentHealth;
 				InShowBackupHealth = false;
 			}
 
 			if (InShowBackupHealth)
 			{
-				// ±¸·ÝÑªÁ¿»æÖÆ¸ß¶È
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ß¶ï¿½
 				float BackupHealthHeight = LastestBackupHealth / MaxHealth * RectSize.y;
-				// ±¸·ÝÑªÁ¿alpha½¥±ä
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½alphaï¿½ï¿½ï¿½ï¿½
 				float BackupHealthColorAlpha = 1 - 0.95 * (std::chrono::duration_cast<std::chrono::milliseconds>(CurrentTime - BackupHealthTimePoint).count() / (float)ShowBackUpHealthDuration);
 				ImColor BackupHealthColorTemp = BackupHealthColor;
 				BackupHealthColorTemp.Value.w = BackupHealthColorAlpha;
-				// ±¸·ÝÑªÁ¿¸ß¶È»º¶¯
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ß¶È»ï¿½ï¿½ï¿½
 				float BackupHealthHeight_Lerp = 1 * (std::chrono::duration_cast<std::chrono::milliseconds>(CurrentTime - BackupHealthTimePoint).count() / (float)ShowBackUpHealthDuration);
 				BackupHealthHeight_Lerp *= (BackupHealthHeight - Height);
 				BackupHealthHeight -= BackupHealthHeight_Lerp;
-				// ±¸·ÝÑªÌõ
+				// ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 				DrawList->AddRectFilled({ RectPos.x,RectPos.y + RectSize.y - BackupHealthHeight },
 					{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 					BackupHealthColorTemp, 5);
 			}
 		}
 
-		// ÑªÌõ
+		// Ñªï¿½ï¿½
 		DrawList->AddRectFilled({ RectPos.x,RectPos.y + RectSize.y - Height },
 			{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 			Color, 5);
 
-		// ±ß¿ò
+		// ï¿½ß¿ï¿½
 		DrawList->AddRect(RectPos,
 			{ RectPos.x + RectSize.x,RectPos.y + RectSize.y },
 			FrameColor, 5, 15, 1);
@@ -374,7 +374,7 @@ namespace Render
 		return Col;
 	}
 
-	// Sign¿ÉÓÃÈÎºÎÀàÐÍµÐÈË±êÊ¶£¬Ä¬ÈÏ¿É´«µÐÈËµØÖ·
+	// Signï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½Ë±ï¿½Ê¶ï¿½ï¿½Ä¬ï¿½Ï¿É´ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ö·
 	void DrawHealthBar(DWORD Sign, float MaxHealth, float CurrentHealth, ImVec2 Pos, ImVec2 Size, bool Horizontal)
 	{
 		static std::map<DWORD, HealthBar> HealthBarMap;
