@@ -173,7 +173,7 @@ bool PlayerPawn::GetPos()
 
 bool PlayerPawn::GetHealth()
 {
-	return GetDataAddressWithOffset<int>(Address, Offset::Pawn.m_iHealth, this->m_iHealth);
+	return GetDataAddressWithOffset<int>(Address, Offset::Entity.m_iHealth, this->m_iHealth);
 }
 
 bool PlayerPawn::GetFov()

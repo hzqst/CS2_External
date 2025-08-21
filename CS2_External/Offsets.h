@@ -16,6 +16,7 @@ namespace Offset
 	struct
 	{
 		DWORD m_iHealth = 0x34C;
+		DWORD m_iMaxHealth = 0x348;
 		DWORD m_iTeamNum = 0x3EB;
 		DWORD m_bPawnIsAlive = 0x904;
 		DWORD m_hPlayerPawn = 0x8FC;
@@ -25,23 +26,21 @@ namespace Offset
 	struct
 	{
 		DWORD m_vOldOrigin = 0x15B0;
-		DWORD m_iMaxHealth = 0x348;
-		DWORD m_iHealth = 0x34C;
 		DWORD m_pGameSceneNode = 0x330;
-		DWORD BoneArray = 0x1F0;
-		DWORD m_angEyeAngles = 0x16A0;
-		DWORD m_vecLastClipCameraPos = 0x1604;
-		DWORD m_pClippingWeapon = 0x1620;
-		DWORD m_iShotsFired = 0x28C4;
-		DWORD m_flFlashDuration = 0x167C;
-		DWORD m_aimPunchAngle = 0x185C;
-		DWORD m_aimPunchCache = 0x1880;
-		DWORD m_iIDEntIndex = 0x1734;
+		DWORD BoneArray = 0x210;
+		DWORD m_angEyeAngles = 0x3E50;
+		DWORD m_vecLastClipCameraPos = 0x3E24;
+		DWORD m_pClippingWeapon = 0x3E40;
+		DWORD m_iShotsFired = 0x278C;
+		DWORD m_flFlashDuration = 0x1620;
+		DWORD m_aimPunchAngle = 0x1734;
+		DWORD m_aimPunchCache = 0x1758;
+		DWORD m_iIDEntIndex = 0x1630;
 		DWORD m_iTeamNum = 0x3EB;
 		DWORD m_pCameraServices = 0x1438;
 		DWORD m_iFovStart = 0x28C;
 		DWORD m_fFlags = 0x3F8;
-		DWORD m_bSpottedByMask = 0x1180 + 0xC; // entitySpottedState + bSpottedByMask
+		DWORD m_bSpottedByMask = 0x2760 + 0xC; // entitySpottedState + bSpottedByMask
 	}Pawn;
 
 	struct
@@ -71,7 +70,7 @@ namespace Offset
 			  v66 = *(float *)&v62;
 			  v63 = sub_1807AA730(a2, "r");
 			  LODWORD(v67) = LODWORD(v63);
-			  sub_1807995A0(ViewAngles, 0LL, &v65);
+			  sub_1807995A0(ClientInput, 0LL, &v65);
 			}
 		*/
 
