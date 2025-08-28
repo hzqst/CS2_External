@@ -1,59 +1,12 @@
 #pragma once
 #include <Windows.h>
 #include "Utils/ProcessManager.hpp"
+#include <client_dll.hpp>
+#include <offsets.hpp>
 
 // From: https://github.com/a2x/cs2-dumper/blob/main/output/client_dll.hpp
 namespace Offset
 {
-	inline DWORD EntityList;
-	inline DWORD Matrix;
-	inline DWORD ViewAngle;
-	inline DWORD LocalPlayerController;
-	inline DWORD LocalPlayerPawn;
-	inline DWORD ForceJump;
-	inline DWORD GlobalVars;
-
-	struct
-	{
-		DWORD m_iHealth = 0x34C;
-		DWORD m_iMaxHealth = 0x348;
-		DWORD m_iTeamNum = 0x3EB;
-		DWORD m_bPawnIsAlive = 0x904;
-		DWORD m_hPlayerPawn = 0x8FC;
-		DWORD m_iszPlayerName = 0x6E8;
-	}Entity;
-
-	struct
-	{
-		DWORD m_vOldOrigin = 0x15B0;
-		DWORD m_pGameSceneNode = 0x330;
-		DWORD BoneArray = 0x210;
-		DWORD m_angEyeAngles = 0x3E50;
-		DWORD m_vecLastClipCameraPos = 0x3E24;
-		DWORD m_pClippingWeapon = 0x3E40;
-		DWORD m_iShotsFired = 0x278C;
-		DWORD m_flFlashDuration = 0x1620;
-		DWORD m_aimPunchAngle = 0x1734;
-		DWORD m_aimPunchCache = 0x1758;
-		DWORD m_iIDEntIndex = 0x1630;
-		DWORD m_iTeamNum = 0x3EB;
-		DWORD m_pCameraServices = 0x1438;
-		DWORD m_iFovStart = 0x28C;
-		DWORD m_fFlags = 0x3F8;
-		DWORD m_bSpottedByMask = 0x2760 + 0xC; // entitySpottedState + bSpottedByMask
-	}Pawn;
-
-	struct
-	{
-		DWORD RealTime = 0x00;
-		DWORD FrameCount = 0x04;
-		DWORD MaxClients = 0x10;
-		DWORD IntervalPerTick = 0x14;
-		DWORD CurrentTime = 0x30;
-		DWORD TickCount = 0x44;
-		DWORD IntervalPerTick2 = 0x44;
-		DWORD CurrentMapName = 0x58;
-	} GlobalVar;
 
 	namespace Signatures
 	{
@@ -83,6 +36,55 @@ namespace Offset
 		const std::string Prediction = "48 8D 05 ?? ?? ?? ?? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54";
 		const size_t Prediction_LocalPlayerPawn = 0xD0;
 	}
+
+	const DWORD EntityList = cs2_dumper::offsets::client_dll::dwEntityList;
+	const DWORD Matrix = cs2_dumper::offsets::client_dll::dwViewMatrix;
+	const DWORD ViewAngle = cs2_dumper::offsets::client_dll::dwCSGOInput + Signatures::ClientInput_ViewAngle;
+	const DWORD LocalPlayerController = cs2_dumper::offsets::client_dll::dwLocalPlayerController;
+	const DWORD LocalPlayerPawn = cs2_dumper::offsets::client_dll::dwLocalPlayerPawn;
+	inline DWORD ForceJump;
+	const DWORD GlobalVars = cs2_dumper::offsets::client_dll::dwGlobalVars;
+
+	struct
+	{
+		DWORD m_iHealth = cs2_dumper::schemas::client_dll::C_BaseEntity::m_iHealth;
+		DWORD m_iMaxHealth = cs2_dumper::schemas::client_dll::C_BaseEntity::m_iMaxHealth;
+		DWORD m_iTeamNum = cs2_dumper::schemas::client_dll::C_BaseEntity::m_iTeamNum;
+		DWORD m_bPawnIsAlive = cs2_dumper::schemas::client_dll::CCSPlayerController::m_bPawnIsAlive;
+		DWORD m_hPlayerPawn = cs2_dumper::schemas::client_dll::CCSPlayerController::m_hPlayerPawn;
+		DWORD m_iszPlayerName = cs2_dumper::schemas::client_dll::CBasePlayerController::m_iszPlayerName;
+	}Entity;
+
+	struct
+	{
+		DWORD m_vOldOrigin = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_vOldOrigin;
+		DWORD m_pGameSceneNode = cs2_dumper::schemas::client_dll::C_BaseEntity::m_pGameSceneNode;
+		DWORD BoneArray = 0x210;
+		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
+		DWORD m_vecLastClipCameraPos = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_vecLastClipCameraPos;
+		DWORD m_pClippingWeapon = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_pClippingWeapon;
+		DWORD m_iShotsFired = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iShotsFired;
+		DWORD m_flFlashDuration = cs2_dumper::schemas::client_dll::C_CSPlayerPawnBase::m_flFlashDuration;
+		DWORD m_aimPunchAngle = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_aimPunchAngle;
+		DWORD m_aimPunchCache = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_aimPunchCache;
+		DWORD m_iIDEntIndex = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iIDEntIndex;
+		DWORD m_pCameraServices = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_pCameraServices;
+		DWORD m_iFovStart = cs2_dumper::schemas::client_dll::CCSPlayerBase_CameraServices::m_iFOVStart;
+		DWORD m_fFlags = cs2_dumper::schemas::client_dll::C_BaseEntity::m_fFlags;
+		DWORD m_bSpottedByMask = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpottedByMask; // entitySpottedState + bSpottedByMask
+	}Pawn;
+
+	struct
+	{
+		DWORD RealTime = 0x00;
+		DWORD FrameCount = 0x04;
+		DWORD MaxClients = 0x10;
+		DWORD IntervalPerTick = 0x14;
+		DWORD CurrentTime = 0x30;
+		DWORD TickCount = 0x44;
+		DWORD IntervalPerTick2 = 0x44;
+		DWORD CurrentMapName = 0x58;
+	} GlobalVar;
 
 	bool UpdateOffsets();
 }

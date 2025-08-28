@@ -138,7 +138,7 @@ bool PlayerPawn::GetAimPunchAngle()
 
 bool PlayerPawn::GetTeamID()
 {
-	return GetDataAddressWithOffset<int>(Address, Offset::Pawn.m_iTeamNum, this->m_iTeamNum);
+	return GetDataAddressWithOffset<int>(Address, Offset::Entity.m_iTeamNum, this->m_iTeamNum);
 }
 
 bool PlayerPawn::GetAimPunchCache()

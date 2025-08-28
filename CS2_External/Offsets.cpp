@@ -26,43 +26,43 @@ bool Offset::UpdateOffsets()
 	
 	DWORD64 TempAddress = 0;
 
-	TempAddress = SearchOffsets(Offset::Signatures::EntityList, ClientDLL);
-	if (TempAddress == 0)
-		return false;
+	//TempAddress = SearchOffsets(Offset::Signatures::EntityList, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
+	//
+	//Offset::EntityList = TempAddress - ClientDLL;
 
-	Offset::EntityList = TempAddress - ClientDLL;
+	//TempAddress = SearchOffsets(Offset::Signatures::LocalPlayerController, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
+	//
+	//Offset::LocalPlayerController = TempAddress - ClientDLL;
 
-	TempAddress = SearchOffsets(Offset::Signatures::LocalPlayerController, ClientDLL);
-	if (TempAddress == 0)
-		return false;
+	//TempAddress = SearchOffsets(Offset::Signatures::ViewMatrix, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
+	//
+	//Offset::Matrix = TempAddress - ClientDLL;
 
-	Offset::LocalPlayerController = TempAddress - ClientDLL;
+	//TempAddress = SearchOffsets(Offset::Signatures::GlobalVars, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
+	//
+	//Offset::GlobalVars = TempAddress - ClientDLL;
 
-	TempAddress = SearchOffsets(Offset::Signatures::ViewMatrix, ClientDLL);
-	if (TempAddress == 0)
-		return false;
+	//TempAddress = SearchOffsets(Offset::Signatures::ClientInput, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
+	//if (!ProcessMgr.ReadMemory(TempAddress, TempAddress))
+	//	return false;
+	//
+	//Offset::ViewAngle = TempAddress + Offset::Signatures::ClientInput_ViewAngle - ClientDLL;
+	//
+	//TempAddress = SearchOffsets(Offset::Signatures::Prediction, ClientDLL);
+	//if (TempAddress == 0)
+	//	return false;
 
-	Offset::Matrix = TempAddress - ClientDLL;
-
-	TempAddress = SearchOffsets(Offset::Signatures::GlobalVars, ClientDLL);
-	if (TempAddress == 0)
-		return false;
-
-	Offset::GlobalVars = TempAddress - ClientDLL;
-
-	TempAddress = SearchOffsets(Offset::Signatures::ClientInput, ClientDLL);
-	if (TempAddress == 0)
-		return false;
-	if (!ProcessMgr.ReadMemory(TempAddress, TempAddress))
-		return false;
-
-	Offset::ViewAngle = TempAddress + Offset::Signatures::ClientInput_ViewAngle - ClientDLL;
-
-	TempAddress = SearchOffsets(Offset::Signatures::Prediction, ClientDLL);
-	if (TempAddress == 0)
-		return false;
-
-	Offset::LocalPlayerPawn = TempAddress + Offset::Signatures::Prediction_LocalPlayerPawn - ClientDLL;
+	//Offset::LocalPlayerPawn = TempAddress + Offset::Signatures::Prediction_LocalPlayerPawn - ClientDLL;
 
 	//TempAddress = SearchOffsets(Offset::Signatures::ForceJump, ClientDLL);
 	//if (TempAddress == 0)
