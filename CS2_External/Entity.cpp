@@ -160,7 +160,7 @@ DWORD64 PlayerController::GetPlayerPawnAddress()
 	if (!ProcessMgr.ReadMemory<DWORD64>(EntityPawnListEntry + 0x10 + 8 * ((Pawn & 0x7FFF) >> 9), EntityPawnListEntry))
 		return 0;
 
-	if (!ProcessMgr.ReadMemory<DWORD64>(EntityPawnListEntry + 0x78 * (Pawn & 0x1FF), EntityPawnAddress))
+	if (!ProcessMgr.ReadMemory<DWORD64>(EntityPawnListEntry + gGame.GetEntityListEntrySize() * (Pawn & 0x1FF), EntityPawnAddress))
 		return 0;
 
 	return EntityPawnAddress;

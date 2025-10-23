@@ -14,7 +14,7 @@ void TriggerBot::Run(const CEntity& LocalEntity)
 		return;
 
 	DWORD64 PawnAddress = 0;
-	if (!ProcessMgr.ReadMemory<DWORD64>(ListEntry + 0x78 * (uHandle & 0x1FF), PawnAddress))
+	if (!ProcessMgr.ReadMemory<DWORD64>(ListEntry + gGame.GetEntityListEntrySize() * (uHandle & 0x1FF), PawnAddress))
 		return;
 
 	CEntity Entity;

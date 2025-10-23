@@ -14,6 +14,7 @@ private:
 		DWORD64 Matrix;
 		DWORD64 ViewAngle;
 		DWORD64 EntityListEntry;
+		DWORD64 EntityListEntrySize = 0x70;
 		DWORD64 LocalController;
 		DWORD64 LocalPawn;
 		DWORD64 ForceJump;
@@ -36,6 +37,8 @@ public:
 	DWORD64 GetViewAngleAddress();
 
 	DWORD64 GetEntityListEntry();
+
+	DWORD64 GetEntityListEntrySize();
 
 	DWORD64 GetLocalControllerAddress();
 

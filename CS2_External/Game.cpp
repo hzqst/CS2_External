@@ -40,6 +40,11 @@ DWORD64 CGame::GetEntityListEntry()
 	return this->Address.EntityListEntry;
 }
 
+DWORD64 CGame::GetEntityListEntrySize()
+{
+	return this->Address.EntityListEntrySize;
+}
+
 DWORD64 CGame::GetLocalControllerAddress()
 {
 	return this->Address.LocalController;

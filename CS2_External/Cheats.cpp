@@ -260,7 +260,7 @@ void Cheats::Run()
 	{
 		CEntity Entity;
 		DWORD64 EntityAddress = 0;
-		if (!ProcessMgr.ReadMemory<DWORD64>(gGame.GetEntityListEntry() + (i + 1) * 0x78, EntityAddress))
+		if (!ProcessMgr.ReadMemory<DWORD64>(gGame.GetEntityListEntry() + (i + 1) * gGame.GetEntityListEntrySize(), EntityAddress))
 			continue;
 
 		if (EntityAddress == LocalEntity.Controller.Address)
