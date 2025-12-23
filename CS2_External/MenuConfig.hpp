@@ -13,6 +13,7 @@ namespace MenuConfig
 	inline bool ShowDistance = true;
 	inline bool ShowEyeRay = true;
 	inline bool ShowPlayerName = true;
+	inline bool ShowGlow = true;
 
 	inline bool AimBot = true;
 	inline int AimBotHotKey = 0;

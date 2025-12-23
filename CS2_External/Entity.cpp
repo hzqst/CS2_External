@@ -146,6 +146,16 @@ bool PlayerPawn::GetAimPunchCache()
 	return GetDataAddressWithOffset<C_UTL_VECTOR>(Address, Offset::Pawn.m_aimPunchCache, this->AimPunchCache);
 }
 
+void PlayerPawn::SetGlow(bool b)
+{
+	ProcessMgr.WriteMemory<bool>(Address + Offset::Entity.m_bGlow, b);
+}
+
+void PlayerPawn::SetGlowColorOverride(DWORD color)
+{
+	ProcessMgr.WriteMemory<DWORD>(Address + Offset::Entity.m_glowColorOverride, color);
+}
+
 DWORD64 PlayerController::GetPlayerPawnAddress()
 {
 	DWORD64 EntityPawnListEntry = 0;

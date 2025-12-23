@@ -64,7 +64,7 @@ int main()
 		}
 	}
 
-	std::cout << "Runing..." << std::endl;
+	std::cout << "Running..." << std::endl;
 
 	try
 	{

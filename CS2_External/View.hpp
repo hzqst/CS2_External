@@ -1,7 +1,6 @@
 #pragma once
 #include "OS-ImGui/OS-ImGui.h"
 
-// сно╥йсм╪юЮ
 class CView
 {
 public:

@@ -19,6 +19,7 @@ void Cheats::Menu()
 		// esp menu
 		if (ImGui::BeginTabItem("ESP"))
 		{
+			Gui.MyCheckBox("Glow", &MenuConfig::ShowGlow);
 			Gui.MyCheckBox("BoxESP", &MenuConfig::ShowBoxESP);
 			ImGui::SameLine();
 			ImGui::ColorEdit4("##BoxColor", reinterpret_cast<float*>(&MenuConfig::BoxColor), ImGuiColorEditFlags_NoInputs);
@@ -300,7 +301,6 @@ void Cheats::Run()
 
 		DistanceToSight = Entity.GetBone().BonePosList[BONEINDEX::head].ScreenPos.DistanceTo({ Gui.Window.Size.x / 2,Gui.Window.Size.y / 2 });
 
-
 		if (DistanceToSight < MaxAimDistance)
 		{
 			MaxAimDistance = DistanceToSight;
@@ -322,6 +322,16 @@ void Cheats::Run()
 		// Draw eyeRay
 		if (MenuConfig::ShowEyeRay)
 			Render::ShowLosLine(Entity, 50, MenuConfig::EyeRayColor, 1.3);
+
+		if (MenuConfig::ShowGlow && Entity.IsAlive())
+		{
+			Entity.Pawn.SetGlow(true);
+			Entity.Pawn.SetGlowColorOverride(0x800000FF);
+		}
+		else
+		{
+			Entity.Pawn.SetGlow(false);
+		}
 
 		// Box
 		ImVec4 Rect;
@@ -378,7 +388,6 @@ void Cheats::Run()
 			else
 				Gui.StrokeText(Entity.Controller.PlayerName, { Rect.x + Rect.z / 2,Rect.y - 13 - 14 }, ImColor(255, 255, 255, 255), 14, true);
 		}
-
 	}
 
 	// Fov line
@@ -417,8 +426,6 @@ void Cheats::Run()
 		TriggerBot::Run(LocalEntity);
 		MenuConfig::Shoot = false;
 	}
-			
-
 
 	// HeadShoot Line
 	if(MenuConfig::ShowHeadShootLine)

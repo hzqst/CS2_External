@@ -68,6 +68,9 @@ public:
 	constexpr bool HasFlag(const Flags Flag) const noexcept {
 		return m_fFlags & (int)Flag;
 	}
+
+	void SetGlow(bool b);
+	void SetGlowColorOverride(DWORD color);
 };
 
 class CEntity

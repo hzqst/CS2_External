@@ -5,7 +5,6 @@
 #include "Entity.h"
 #include <iostream>
 
-
 namespace AimControl
 {
 	inline int HotKey = VK_LBUTTON;
