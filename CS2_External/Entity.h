@@ -61,7 +61,7 @@ public:
 	bool GetHealth();
 	bool GetTeamID();
 	bool GetFov();
-	bool GetSpotted();
+	bool GetSpottedMask();
 	bool GetFFlags();
 	bool GetAimPunchCache();
 
@@ -71,6 +71,7 @@ public:
 
 	void SetGlow(bool b);
 	void SetGlowColorOverride(DWORD color);
+	void SetSpotted(bool b);
 };
 
 class CEntity

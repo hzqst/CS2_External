@@ -44,7 +44,7 @@ bool CEntity::UpdatePawn(const DWORD64& PlayerPawnAddress)
 		return false;
 	if (!this->Pawn.GetFov())
 		return false;
-	if (!this->Pawn.GetSpotted())
+	if (!this->Pawn.GetSpottedMask())
 		return false;
 	if (!this->Pawn.GetFFlags())
 		return false;
@@ -95,7 +95,7 @@ bool PlayerPawn::GetCameraPos()
 	return GetDataAddressWithOffset<Vec3>(Address, Offset::Pawn.m_vecLastClipCameraPos, this->CameraPos);
 }
 
-bool PlayerPawn::GetSpotted()
+bool PlayerPawn::GetSpottedMask()
 {
 	return GetDataAddressWithOffset<DWORD64>(Address, Offset::Pawn.m_bSpottedByMask, this->m_bSpottedByMask);
 }
@@ -154,6 +154,11 @@ void PlayerPawn::SetGlow(bool b)
 void PlayerPawn::SetGlowColorOverride(DWORD color)
 {
 	ProcessMgr.WriteMemory<DWORD>(Address + Offset::Entity.m_glowColorOverride, color);
+}
+
+void PlayerPawn::SetSpotted(bool b)
+{
+	ProcessMgr.WriteMemory<bool>(Address + Offset::Pawn.m_bSpotted, b);
 }
 
 DWORD64 PlayerController::GetPlayerPawnAddress()

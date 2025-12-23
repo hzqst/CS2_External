@@ -14,6 +14,7 @@ namespace MenuConfig
 	inline bool ShowEyeRay = true;
 	inline bool ShowPlayerName = true;
 	inline bool ShowGlow = true;
+	inline bool ShowSpotted = true;
 
 	inline bool AimBot = true;
 	inline int AimBotHotKey = 0;
@@ -48,7 +49,7 @@ namespace MenuConfig
 	inline int TriggerHotKey = 0;
 	inline int TriggerMode = 0;
 	inline bool Pressed = false;// for toggle mode
-	inline bool Shoot = false;// so that it doesn�t aim when the trigger hits
+	inline bool Shoot = false;// so that it doesn t aim when the trigger hits
 
 	inline bool TeamCheck = true;
 	inline bool OBSBypass = false;
