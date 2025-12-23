@@ -30,6 +30,7 @@ namespace MenuConfig
 
 	inline ImColor BoneColor = ImColor(255, 255, 255, 255);
 	inline ImColor BoxColor = ImColor(255, 255, 255, 255);
+	inline ImColor GlowColor = ImColor(255, 255, 255, 255);
 	inline ImColor EyeRayColor = ImColor(255, 0, 0, 255);
 
 	inline bool ShowMenu = true;

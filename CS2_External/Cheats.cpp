@@ -20,6 +20,9 @@ void Cheats::Menu()
 		if (ImGui::BeginTabItem("ESP"))
 		{
 			Gui.MyCheckBox("Glow", &MenuConfig::ShowGlow);
+			ImGui::SameLine();
+			ImGui::ColorEdit4("##GlowColor", reinterpret_cast<float*>(&MenuConfig::GlowColor), ImGuiColorEditFlags_NoInputs);
+
 			Gui.MyCheckBox("BoxESP", &MenuConfig::ShowBoxESP);
 			ImGui::SameLine();
 			ImGui::ColorEdit4("##BoxColor", reinterpret_cast<float*>(&MenuConfig::BoxColor), ImGuiColorEditFlags_NoInputs);
@@ -326,7 +329,7 @@ void Cheats::Run()
 		if (MenuConfig::ShowGlow && Entity.IsAlive())
 		{
 			Entity.Pawn.SetGlow(true);
-			Entity.Pawn.SetGlowColorOverride(0x800000FF);
+			Entity.Pawn.SetGlowColorOverride(MenuConfig::GlowColor);
 		}
 		else
 		{
