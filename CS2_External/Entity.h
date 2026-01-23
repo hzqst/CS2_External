@@ -63,7 +63,7 @@ public:
 	bool GetFov();
 	bool GetSpottedMask();
 	bool GetFFlags();
-	bool GetAimPunchCache();
+	//bool GetAimPunchCache();
 
 	constexpr bool HasFlag(const Flags Flag) const noexcept {
 		return m_fFlags & (int)Flag;

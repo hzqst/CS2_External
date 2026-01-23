@@ -48,8 +48,8 @@ bool CEntity::UpdatePawn(const DWORD64& PlayerPawnAddress)
 		return false;
 	if (!this->Pawn.GetFFlags())
 		return false;
-	if (!this->Pawn.GetAimPunchCache())
-		return false;
+	//if (!this->Pawn.GetAimPunchCache())
+	//	return false;
 	if (!this->Pawn.BoneData.UpdateAllBoneData(PlayerPawnAddress))
 		return false;
 
@@ -141,10 +141,10 @@ bool PlayerPawn::GetTeamID()
 	return GetDataAddressWithOffset<int>(Address, Offset::Entity.m_iTeamNum, this->m_iTeamNum);
 }
 
-bool PlayerPawn::GetAimPunchCache()
-{
-	return GetDataAddressWithOffset<C_UTL_VECTOR>(Address, Offset::Pawn.m_aimPunchCache, this->AimPunchCache);
-}
+//bool PlayerPawn::GetAimPunchCache()
+//{
+//	return GetDataAddressWithOffset<C_UTL_VECTOR>(Address, Offset::Pawn.m_aimPunchCache, this->AimPunchCache);
+//}
 
 void PlayerPawn::SetGlow(bool b)
 {
