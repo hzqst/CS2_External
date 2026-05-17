@@ -7,3 +7,5 @@
 x64/
 x86/
 /CS2_External/imgui.ini
+.vs
+settings.json
