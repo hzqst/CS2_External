@@ -65,7 +65,7 @@ namespace Offset
 		// CSkeletonInstance derives from CGameSceneNode; the bone-matrix cache sits at
 		// m_modelState + 0x80 (the matrix array inside CModelState). Hardcoding 0x210
 		// breaks whenever the game shifts m_modelState — pull it from cs2-dumper.
-		DWORD BoneArray = cs2_dumper::schemas::client_dll::CSkeletonInstance::m_modelState + 0x80;
+		DWORD BoneArray = cs2_dumper::schemas::client_dll::CSkeletonInstance::m_modelState + 0x80;// 0x80 = CModelState::m_simulationState
 		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
 		// m_vecLastClipCameraPos was removed from the schema; the local camera
 		// origin is now sourced from the CViewRender singleton (see CView).
