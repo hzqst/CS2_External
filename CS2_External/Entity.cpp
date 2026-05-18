@@ -26,15 +26,11 @@ bool CEntity::UpdatePawn(const DWORD64& PlayerPawnAddress)
 		return false;
 	this->Pawn.Address = PlayerPawnAddress;
 
-	if (!this->Pawn.GetCameraPos())
-		return false;
 	if (!this->Pawn.GetPos())
 		return false;
 	if (!this->Pawn.GetViewAngle())
 		return false;
 	if (!this->Pawn.GetWeaponName())
-		return false;
-	if (!this->Pawn.GetAimPunchAngle())
 		return false;
 	if (!this->Pawn.GetShotsFired())
 		return false;
@@ -48,8 +44,6 @@ bool CEntity::UpdatePawn(const DWORD64& PlayerPawnAddress)
 		return false;
 	if (!this->Pawn.GetFFlags())
 		return false;
-	//if (!this->Pawn.GetAimPunchCache())
-	//	return false;
 	if (!this->Pawn.BoneData.UpdateAllBoneData(PlayerPawnAddress))
 		return false;
 
@@ -90,11 +84,6 @@ bool PlayerPawn::GetViewAngle()
 	return GetDataAddressWithOffset<Vec2>(Address, Offset::Pawn.m_angEyeAngles, this->ViewAngle);
 }
 
-bool PlayerPawn::GetCameraPos()
-{
-	return GetDataAddressWithOffset<Vec3>(Address, Offset::Pawn.m_vecLastClipCameraPos, this->CameraPos);
-}
-
 bool PlayerPawn::GetSpottedMask()
 {
 	return GetDataAddressWithOffset<DWORD64>(Address, Offset::Pawn.m_bSpottedByMask, this->m_bSpottedByMask);
@@ -102,14 +91,38 @@ bool PlayerPawn::GetSpottedMask()
 
 bool PlayerPawn::GetWeaponName()
 {
+	DWORD64 WeaponServices = 0;
+	DWORD ActiveWeaponHandle = 0;
+	DWORD64 EntityListEntry = 0;
+	DWORD64 WeaponAddress = 0;
+	DWORD64 WeaponVData = 0;
 	DWORD64 WeaponNameAddress = 0;
 	char Buffer[40]{};
-	
-	WeaponNameAddress = ProcessMgr.TraceAddress(this->Address + Offset::Pawn.m_pClippingWeapon, { 0x10,0x20 ,0x0 });
-	if (WeaponNameAddress == 0)
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(this->Address + Offset::Pawn.m_pWeaponServices, WeaponServices) || WeaponServices == 0)
 		return false;
 
-	if (!ProcessMgr.ReadMemory(WeaponNameAddress, Buffer, 40))
+	if (!ProcessMgr.ReadMemory<DWORD>(WeaponServices + Offset::Weapon.m_hActiveWeapon, ActiveWeaponHandle))
+		return false;
+	if (ActiveWeaponHandle == 0 || ActiveWeaponHandle == 0xFFFFFFFF)
+		return false;
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(gGame.GetEntityListAddress(), EntityListEntry))
+		return false;
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(EntityListEntry + 0x10 + 8 * ((ActiveWeaponHandle & 0x7FFF) >> 9), EntityListEntry))
+		return false;
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(EntityListEntry + gGame.GetEntityListEntrySize() * (ActiveWeaponHandle & 0x1FF), WeaponAddress) || WeaponAddress == 0)
+		return false;
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(WeaponAddress + Offset::Weapon.m_nSubclassID + 0x8, WeaponVData) || WeaponVData == 0)
+		return false;
+
+	if (!ProcessMgr.ReadMemory<DWORD64>(WeaponVData + Offset::Weapon.m_szName, WeaponNameAddress) || WeaponNameAddress == 0)
+		return false;
+
+	if (!ProcessMgr.ReadMemory(WeaponNameAddress, Buffer, sizeof(Buffer)))
 		return false;
 
 	WeaponName = std::string(Buffer);
@@ -131,20 +144,10 @@ bool PlayerPawn::GetShotsFired()
 	return GetDataAddressWithOffset<DWORD>(Address, Offset::Pawn.m_iShotsFired, this->ShotsFired);
 }
 
-bool PlayerPawn::GetAimPunchAngle()
-{
-	return GetDataAddressWithOffset<Vec2>(Address, Offset::Pawn.m_aimPunchAngle, this->AimPunchAngle);
-}
-
 bool PlayerPawn::GetTeamID()
 {
 	return GetDataAddressWithOffset<int>(Address, Offset::Entity.m_iTeamNum, this->m_iTeamNum);
 }
-
-//bool PlayerPawn::GetAimPunchCache()
-//{
-//	return GetDataAddressWithOffset<C_UTL_VECTOR>(Address, Offset::Pawn.m_aimPunchCache, this->AimPunchCache);
-//}
 
 void PlayerPawn::SetGlow(bool b)
 {

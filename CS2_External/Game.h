@@ -19,6 +19,7 @@ private:
 		DWORD64 LocalPawn;
 		DWORD64 ForceJump;
 		DWORD64 GlobalVars;
+		DWORD64 Sensitivity;
 	}Address;
 
 public:
@@ -45,6 +46,8 @@ public:
 	DWORD64 GetLocalPawnAddress();
 
 	DWORD64 GetGlobalVarsAddress();
+
+	DWORD64 GetSensitivityAddress();
 
 	bool UpdateEntityListEntry();
 

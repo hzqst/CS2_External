@@ -160,6 +160,29 @@ public:
 	/// <returns>ƥ���������</returns>
 	std::vector<DWORD64> SearchMemory(const std::string& Signature, DWORD64 StartAddress, DWORD64 EndAddress, int SearchNum = 1);
 
+	/// <summary>
+	/// Get the virtual size of a loaded module.
+	/// </summary>
+	DWORD64 GetModuleSize(DWORD64 ModuleBase);
+
+	/// <summary>
+	/// Find a QWORD slot in the target module whose value equals `Value`.
+	/// `RequiredCharacteristics` is an IMAGE_SCN_* bitmask; sections whose flags do
+	/// not include every requested bit are skipped.
+	/// </summary>
+	DWORD64 FindQWordInSections(DWORD64 ModuleBase, DWORD64 Value, DWORD RequiredCharacteristics);
+
+	/// <summary>
+	/// Locate the vtable address of `ClassName` in the given module via RTTI
+	/// (.?AV{ClassName}@@ type descriptor -> Complete Object Locator -> vtable).
+	/// </summary>
+	DWORD64 FindVTable(DWORD64 ModuleBase, const std::string& ClassName);
+
+	/// <summary>
+	/// Locate a writable QWORD instance that points to the vtable of `ClassName`.
+	/// </summary>
+	DWORD64 FindVTableInstance(DWORD64 ModuleBase, const std::string& ClassName);
+
 	DWORD64 TraceAddress(DWORD64 BaseAddress, std::vector<DWORD> Offsets)
 	{
 		_is_invalid(hProcess,0);

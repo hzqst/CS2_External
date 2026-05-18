@@ -185,6 +185,9 @@
     <ClCompile Include="Utils\MemorySearch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\VTableSearch.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
     <ClCompile Include="Radar\Radar.cpp">
       <Filter>Cheats\Radar</Filter>
     </ClCompile>

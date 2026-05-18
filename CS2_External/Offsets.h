@@ -28,13 +28,11 @@ namespace Offset
 		*/
 
 		const std::string ClientInput = "48 8B 0D ?? ?? ?? ?? 4C 8D 44 24 40 33 D2 F3 0F";
-		const size_t ClientInput_ViewAngle = 0x2CC;
+		const size_t ClientInput_ViewAngle = 0x688;
 
 		const std::string EntityList = "48 8B 0D ?? ?? ?? ?? 48 89 7C 24 ?? 8B FA C1";
 		const std::string LocalPlayerController = "48 8B 15 ?? ?? ?? ?? 48 85 D2 74 ?? 8B 92 B4 06 00 00";
 		const std::string ForceJump = "48 8B 05 ?? ?? ?? ?? 48 8D 1D ?? ?? ?? ?? 48 89 45";
-		const std::string Prediction = "48 8D 05 ?? ?? ?? ?? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54";
-		const size_t Prediction_LocalPlayerPawn = 0xD0;
 	}
 
 	const DWORD EntityList = cs2_dumper::offsets::client_dll::dwEntityList;
@@ -44,6 +42,9 @@ namespace Offset
 	const DWORD LocalPlayerPawn = cs2_dumper::offsets::client_dll::dwLocalPlayerPawn;
 	inline DWORD ForceJump;
 	const DWORD GlobalVars = cs2_dumper::offsets::client_dll::dwGlobalVars;
+	// Pointer to the live `sensitivity` convar object; the float lives at +0x58.
+	const DWORD Sensitivity = cs2_dumper::offsets::client_dll::dwSensitivity;
+	const DWORD Sensitivity_Value = cs2_dumper::offsets::client_dll::dwSensitivity_sensitivity;
 
 	struct
 	{
@@ -61,21 +62,34 @@ namespace Offset
 	{
 		DWORD m_vOldOrigin = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_vOldOrigin;
 		DWORD m_pGameSceneNode = cs2_dumper::schemas::client_dll::C_BaseEntity::m_pGameSceneNode;
-		DWORD BoneArray = 0x210;
+		// CSkeletonInstance derives from CGameSceneNode; the bone-matrix cache sits at
+		// m_modelState + 0x80 (the matrix array inside CModelState). Hardcoding 0x210
+		// breaks whenever the game shifts m_modelState — pull it from cs2-dumper.
+		DWORD BoneArray = cs2_dumper::schemas::client_dll::CSkeletonInstance::m_modelState + 0x80;
 		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
-		DWORD m_vecLastClipCameraPos = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_vecLastClipCameraPos;
-		DWORD m_pClippingWeapon = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_pClippingWeapon;
+		// m_vecLastClipCameraPos was removed from the schema; the local camera
+		// origin is now sourced from the CViewRender singleton (see CView).
+		// m_pClippingWeapon was removed from the schema; the active weapon is
+		// now resolved via m_pWeaponServices -> m_hActiveWeapon (see Weapon).
+		DWORD m_pWeaponServices = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_pWeaponServices;
 		DWORD m_iShotsFired = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iShotsFired;
 		DWORD m_flFlashDuration = cs2_dumper::schemas::client_dll::C_CSPlayerPawnBase::m_flFlashDuration;
-		DWORD m_aimPunchAngle = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_aimPunchAngle;
-		DWORD m_aimPunchCache = 0;//Not a thing since Game update(14132)
 		DWORD m_iIDEntIndex = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iIDEntIndex;
 		DWORD m_pCameraServices = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_pCameraServices;
+		DWORD m_flFOVSensitivityAdjust = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_flFOVSensitivityAdjust;
 		DWORD m_iFovStart = cs2_dumper::schemas::client_dll::CCSPlayerBase_CameraServices::m_iFOVStart;
 		DWORD m_fFlags = cs2_dumper::schemas::client_dll::C_BaseEntity::m_fFlags;
 		DWORD m_bSpotted = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpotted;
 		DWORD m_bSpottedByMask = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpottedByMask; // entitySpottedState + bSpottedByMask
 	}Pawn;
+
+	struct
+	{
+		DWORD m_hActiveWeapon = cs2_dumper::schemas::client_dll::CPlayer_WeaponServices::m_hActiveWeapon;
+		// vdata lives at C_BaseEntity::m_nSubclassID + 0x8 (CCSWeaponBaseVData*)
+		DWORD m_nSubclassID = cs2_dumper::schemas::client_dll::C_BaseEntity::m_nSubclassID;
+		DWORD m_szName = cs2_dumper::schemas::client_dll::CCSWeaponBaseVData::m_szName;
+	}Weapon;
 
 	struct
 	{

@@ -92,24 +92,22 @@ void Cheats::Menu()
 				switch (MenuConfig::AimPosition)
 				{
 				case 0:
-					MenuConfig::AimPositionIndex = BONEINDEX::head;
+					MenuConfig::AimPositionIndex = BONEINDEX::HEAD;
 					break;
 				case 1:
-					MenuConfig::AimPositionIndex = BONEINDEX::neck_0;
+					MenuConfig::AimPositionIndex = BONEINDEX::NECK_0;
 					break;
 				case 2:
-					MenuConfig::AimPositionIndex = BONEINDEX::spine_1;
+					MenuConfig::AimPositionIndex = BONEINDEX::SPINE_1;
 					break;
 				default:
 					break;
 				}
 			}
-			int BulletMin = 1, BulletMax = 6;
-			float RecoilMin = 0.f, RecoilMax = 2.f;
-			Gui.SliderScalarEx1("Start Bullet", ImGuiDataType_U32, &AimControl::RCSBullet, &BulletMin, &BulletMax, "%d", ImGuiSliderFlags_None);
-			Gui.SliderScalarEx1("RCS Yaw", ImGuiDataType_Float, &AimControl::RCSScale.x, &RecoilMin, &RecoilMax, "%.1f", ImGuiSliderFlags_None);
-			Gui.SliderScalarEx1("RCS Pitch", ImGuiDataType_Float, &AimControl::RCSScale.y, &RecoilMin, &RecoilMax, "%.1f", ImGuiSliderFlags_None);
 			Gui.MyCheckBox("VisibleCheck", &MenuConfig::VisibleCheck);
+
+			//use SendInput instead of WriteMemory
+			Gui.MyCheckBox("LegitInput", &MenuConfig::LegitInput);
 		
 			ImGui::EndTabItem();
 		}
@@ -229,6 +227,9 @@ void Cheats::Run()
 	if (!ProcessMgr.ReadMemory(gGame.GetMatrixAddress(), gGame.View.Matrix, 64))
 		return;
 
+	// Refresh global camera (origin/angles/fov) via CViewRender singleton.
+	gGame.View.UpdateCamera(gGame.GetClientDLLAddress());
+
 	// Update EntityList Entry
 	gGame.UpdateEntityListEntry();
 
@@ -304,7 +305,7 @@ void Cheats::Run()
 			}
 		}*/
 
-		DistanceToSight = Entity.GetBone().BonePosList[BONEINDEX::head].ScreenPos.DistanceTo({ Gui.Window.Size.x / 2,Gui.Window.Size.y / 2 });
+		DistanceToSight = Entity.GetBone().BonePosList[BONEINDEX::HEAD].ScreenPos.DistanceTo({ Gui.Window.Size.x / 2,Gui.Window.Size.y / 2 });
 
 		if (DistanceToSight < MaxAimDistance)
 		{
@@ -315,7 +316,7 @@ void Cheats::Run()
 				LocalEntity.Pawn.m_bSpottedByMask & (DWORD64(1) << (i)))
 			{
 				AimPos = Entity.GetBone().BonePosList[MenuConfig::AimPositionIndex].Pos;
-				if (MenuConfig::AimPositionIndex == BONEINDEX::head)
+				if (MenuConfig::AimPositionIndex == BONEINDEX::HEAD)
 					AimPos.z -= 1.f;
 			}
 		}
@@ -455,7 +456,7 @@ void Cheats::Run()
 	{
 		if (AimPos != Vec3(0, 0, 0))
 		{
-			AimControl::AimBot(LocalEntity, LocalEntity.Pawn.CameraPos, AimPos);
+			AimControl::AimBot(LocalEntity, gGame.View.Origin, AimPos);
 		}
 	}
 }
