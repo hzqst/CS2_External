@@ -92,7 +92,11 @@ bool PlayerPawn::GetViewAngle()
 
 bool PlayerPawn::GetCameraPos()
 {
-	return GetDataAddressWithOffset<Vec3>(Address, Offset::Pawn.m_vecLastClipCameraPos, this->CameraPos);
+	// m_vecLastClipCameraPos no longer exists. The CViewRender singleton holds
+	// the live render-camera origin; CView::UpdateCamera fetches it once per
+	// frame from Cheats::Run, so per-pawn we just copy it.
+	this->CameraPos = gGame.View.Origin;
+	return true;
 }
 
 bool PlayerPawn::GetSpottedMask()

@@ -229,6 +229,9 @@ void Cheats::Run()
 	if (!ProcessMgr.ReadMemory(gGame.GetMatrixAddress(), gGame.View.Matrix, 64))
 		return;
 
+	// Refresh global camera (origin/angles/fov) via CViewRender singleton.
+	gGame.View.UpdateCamera(gGame.GetClientDLLAddress());
+
 	// Update EntityList Entry
 	gGame.UpdateEntityListEntry();
 
