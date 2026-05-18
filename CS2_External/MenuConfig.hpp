@@ -22,7 +22,7 @@ namespace MenuConfig
 	inline int  AimPosition = 0;
 	inline bool ShowAimFovRange = true;
 	inline ImColor AimFovRangeColor = ImColor(230, 230, 230, 255);
-	inline DWORD  AimPositionIndex = BONEINDEX::head;
+	inline DWORD  AimPositionIndex = BONEINDEX::HEAD;
 	inline bool VisibleCheck = true;
 	// 0: normal 1: dynamic
 	inline int  BoxType = 0;

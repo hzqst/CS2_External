@@ -97,7 +97,7 @@ namespace ConfigMenu {
 		MenuConfig::ShowPlayerName = true;
 		MenuConfig::AimBot = true;
 		MenuConfig::AimPosition = 0;
-		MenuConfig::AimPositionIndex = BONEINDEX::head;
+		MenuConfig::AimPositionIndex = BONEINDEX::HEAD;
 		MenuConfig::BoxType = 0;
 		MenuConfig::HealthBarType = 0;
 		MenuConfig::BoneColor = ImVec4(255, 255, 255, 255);

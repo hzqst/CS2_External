@@ -92,13 +92,13 @@ void Cheats::Menu()
 				switch (MenuConfig::AimPosition)
 				{
 				case 0:
-					MenuConfig::AimPositionIndex = BONEINDEX::head;
+					MenuConfig::AimPositionIndex = BONEINDEX::HEAD;
 					break;
 				case 1:
-					MenuConfig::AimPositionIndex = BONEINDEX::neck_0;
+					MenuConfig::AimPositionIndex = BONEINDEX::NECK_0;
 					break;
 				case 2:
-					MenuConfig::AimPositionIndex = BONEINDEX::spine_1;
+					MenuConfig::AimPositionIndex = BONEINDEX::SPINE_1;
 					break;
 				default:
 					break;
@@ -304,7 +304,7 @@ void Cheats::Run()
 			}
 		}*/
 
-		DistanceToSight = Entity.GetBone().BonePosList[BONEINDEX::head].ScreenPos.DistanceTo({ Gui.Window.Size.x / 2,Gui.Window.Size.y / 2 });
+		DistanceToSight = Entity.GetBone().BonePosList[BONEINDEX::HEAD].ScreenPos.DistanceTo({ Gui.Window.Size.x / 2,Gui.Window.Size.y / 2 });
 
 		if (DistanceToSight < MaxAimDistance)
 		{
@@ -315,7 +315,7 @@ void Cheats::Run()
 				LocalEntity.Pawn.m_bSpottedByMask & (DWORD64(1) << (i)))
 			{
 				AimPos = Entity.GetBone().BonePosList[MenuConfig::AimPositionIndex].Pos;
-				if (MenuConfig::AimPositionIndex == BONEINDEX::head)
+				if (MenuConfig::AimPositionIndex == BONEINDEX::HEAD)
 					AimPos.z -= 1.f;
 			}
 		}

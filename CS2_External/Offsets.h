@@ -61,7 +61,10 @@ namespace Offset
 	{
 		DWORD m_vOldOrigin = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_vOldOrigin;
 		DWORD m_pGameSceneNode = cs2_dumper::schemas::client_dll::C_BaseEntity::m_pGameSceneNode;
-		DWORD BoneArray = 0x210;
+		// CSkeletonInstance derives from CGameSceneNode; the bone-matrix cache sits at
+		// m_modelState + 0x80 (the matrix array inside CModelState). Hardcoding 0x210
+		// breaks whenever the game shifts m_modelState — pull it from cs2-dumper.
+		DWORD BoneArray = cs2_dumper::schemas::client_dll::CSkeletonInstance::m_modelState + 0x80;
 		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
 		DWORD m_vecLastClipCameraPos = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_vecLastClipCameraPos;
 		DWORD m_pClippingWeapon = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_pClippingWeapon;

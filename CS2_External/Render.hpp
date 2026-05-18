@@ -1,6 +1,7 @@
 #pragma once
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <cfloat>
 #include <chrono>
 #include <map>
 #include "Entity.h"
@@ -73,7 +74,7 @@ namespace Render
 	// �������
 	ImVec4 Get2DBox(const CEntity& Entity)
 	{
-		BoneJointPos Head = Entity.GetBone().BonePosList[BONEINDEX::head];
+		BoneJointPos Head = Entity.GetBone().BonePosList[BONEINDEX::HEAD];
 
 		Vec2 Size, Pos;
 		Size.y = (Entity.Pawn.ScreenPos.y - Head.ScreenPos.y) * 1.09;
@@ -115,7 +116,7 @@ namespace Render
 	{
 		Vec2 StartPoint, EndPoint;
 		Vec3 Temp;
-		BoneJointPos Head = Entity.GetBone().BonePosList[BONEINDEX::head];
+		BoneJointPos Head = Entity.GetBone().BonePosList[BONEINDEX::HEAD];
 
 		StartPoint = Head.ScreenPos;
 
@@ -131,25 +132,48 @@ namespace Render
 		Gui.Line(StartPoint, EndPoint, Color, Thickness);
 	}
 
-	// 2D���������
+	// 2D bone-derived bounding box. Restricted to known skeleton bones — the
+	// raw BonePosList contains 30 entries but the active skeleton only uses
+	// indices up to 23, and the unused slots can hold stale/garbage transforms
+	// that would otherwise inflate the box.
 	ImVec4 Get2DBoneRect(const CEntity& Entity)
 	{
-		Vec2 Min, Max, Size;
-		Min = Max = Entity.GetBone().BonePosList[0].ScreenPos;
+		static constexpr int KnownBones[] = {
+			BONEINDEX::PELVIS,
+			BONEINDEX::SPINE_0, BONEINDEX::SPINE_1, BONEINDEX::SPINE_2,
+			BONEINDEX::NECK_0, BONEINDEX::HEAD,
+			BONEINDEX::CLAVICLE_L, BONEINDEX::ARM_UPPER_L, BONEINDEX::ARM_LOWER_L, BONEINDEX::HAND_L,
+			BONEINDEX::CLAVICLE_R, BONEINDEX::ARM_UPPER_R, BONEINDEX::ARM_LOWER_R, BONEINDEX::HAND_R,
+			BONEINDEX::HIP_L, BONEINDEX::KNEE_L, BONEINDEX::ANKLE_L,
+			BONEINDEX::HIP_R, BONEINDEX::KNEE_R, BONEINDEX::ANKLE_R,
+			BONEINDEX::CHEST,
+		};
 
-		for (auto &BoneJoint : Entity.GetBone().BonePosList)
+		const auto& Bones = Entity.GetBone().BonePosList;
+		Vec2 Min{ FLT_MAX, FLT_MAX };
+		Vec2 Max{ -FLT_MAX, -FLT_MAX };
+		bool HasAny = false;
+
+		for (int Index : KnownBones)
 		{
+			if (Index < 0 || static_cast<size_t>(Index) >= Bones.size())
+				continue;
+
+			const auto& BoneJoint = Bones[Index];
 			if (!BoneJoint.IsVisible)
 				continue;
+
 			Min.x = min(BoneJoint.ScreenPos.x, Min.x);
 			Min.y = min(BoneJoint.ScreenPos.y, Min.y);
 			Max.x = max(BoneJoint.ScreenPos.x, Max.x);
 			Max.y = max(BoneJoint.ScreenPos.y, Max.y);
+			HasAny = true;
 		}
-		Size.x = Max.x - Min.x;
-		Size.y = Max.y - Min.y;
 
-		return ImVec4(Min.x, Min.y, Size.x, Size.y);
+		if (!HasAny)
+			return ImVec4(0.f, 0.f, 0.f, 0.f);
+
+		return ImVec4(Min.x, Min.y, Max.x - Min.x, Max.y - Min.y);
 	}
 
 	class HealthBar
