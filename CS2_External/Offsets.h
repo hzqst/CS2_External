@@ -68,7 +68,9 @@ namespace Offset
 		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
 		// m_vecLastClipCameraPos was removed from the schema; the local camera
 		// origin is now sourced from the CViewRender singleton (see CView).
-		DWORD m_pClippingWeapon = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_pClippingWeapon;
+		// m_pClippingWeapon was removed from the schema; the active weapon is
+		// now resolved via m_pWeaponServices -> m_hActiveWeapon (see Weapon).
+		DWORD m_pWeaponServices = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_pWeaponServices;
 		DWORD m_iShotsFired = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iShotsFired;
 		DWORD m_flFlashDuration = cs2_dumper::schemas::client_dll::C_CSPlayerPawnBase::m_flFlashDuration;
 		DWORD m_aimPunchAngle = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_aimPunchAngle;
@@ -80,6 +82,14 @@ namespace Offset
 		DWORD m_bSpotted = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpotted;
 		DWORD m_bSpottedByMask = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpottedByMask; // entitySpottedState + bSpottedByMask
 	}Pawn;
+
+	struct
+	{
+		DWORD m_hActiveWeapon = cs2_dumper::schemas::client_dll::CPlayer_WeaponServices::m_hActiveWeapon;
+		// vdata lives at C_BaseEntity::m_nSubclassID + 0x8 (CCSWeaponBaseVData*)
+		DWORD m_nSubclassID = cs2_dumper::schemas::client_dll::C_BaseEntity::m_nSubclassID;
+		DWORD m_szName = cs2_dumper::schemas::client_dll::CCSWeaponBaseVData::m_szName;
+	}Weapon;
 
 	struct
 	{
