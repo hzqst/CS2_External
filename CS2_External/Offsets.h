@@ -28,13 +28,11 @@ namespace Offset
 		*/
 
 		const std::string ClientInput = "48 8B 0D ?? ?? ?? ?? 4C 8D 44 24 40 33 D2 F3 0F";
-		const size_t ClientInput_ViewAngle = 0x2CC;
+		const size_t ClientInput_ViewAngle = 0x688;
 
 		const std::string EntityList = "48 8B 0D ?? ?? ?? ?? 48 89 7C 24 ?? 8B FA C1";
 		const std::string LocalPlayerController = "48 8B 15 ?? ?? ?? ?? 48 85 D2 74 ?? 8B 92 B4 06 00 00";
 		const std::string ForceJump = "48 8B 05 ?? ?? ?? ?? 48 8D 1D ?? ?? ?? ?? 48 89 45";
-		const std::string Prediction = "48 8D 05 ?? ?? ?? ?? C3 CC CC CC CC CC CC CC CC 40 53 56 41 54";
-		const size_t Prediction_LocalPlayerPawn = 0xD0;
 	}
 
 	const DWORD EntityList = cs2_dumper::offsets::client_dll::dwEntityList;
