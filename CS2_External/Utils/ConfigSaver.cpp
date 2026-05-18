@@ -23,14 +23,11 @@ namespace MyConfigSaver {
         configFile << "ShowBoxESP " << MenuConfig::ShowBoxESP << std::endl;
         configFile << "TriggerHotKey " << MenuConfig::TriggerHotKey << std::endl;
         configFile << "TriggerMode " << MenuConfig::TriggerMode << std::endl;//TriggerMode
-        configFile << "RCSBullet " << AimControl::RCSBullet << std::endl;
         configFile << "ShowHealthBar " << MenuConfig::ShowHealthBar << std::endl;
         configFile << "AimFov " << AimControl::AimFov << std::endl;
         configFile << "FovLineSize " << MenuConfig::FovLineSize << std::endl;
         configFile << "AimBotHotKey " << MenuConfig::AimBotHotKey << std::endl;
         configFile << "ShowLineToEnemy " << MenuConfig::ShowLineToEnemy << std::endl;
-        configFile << "RCSScale.x " << AimControl::RCSScale.x << std::endl;
-        configFile << "RCSScale.y " << AimControl::RCSScale.y << std::endl;
         configFile << "ShowWeaponESP " << MenuConfig::ShowWeaponESP << std::endl;
         configFile << "ShowDistance " << MenuConfig::ShowDistance << std::endl;
         configFile << "Smooth " << AimControl::Smooth << std::endl;
@@ -91,14 +88,11 @@ namespace MyConfigSaver {
                 else if (key == "ShowBoxESP") iss >> MenuConfig::ShowBoxESP;
                 else if (key == "TriggerHotKey") { iss >> MenuConfig::TriggerHotKey; TriggerBot::SetHotKey(MenuConfig::TriggerHotKey); }
                 else if (key == "TriggerMode") { iss >> MenuConfig::TriggerMode; TriggerBot::SetMode(MenuConfig::TriggerMode); }//TriggerMode
-                else if (key == "RCSBullet") iss >> AimControl::RCSBullet;
                 else if (key == "ShowHealthBar") iss >> MenuConfig::ShowHealthBar;
                 else if (key == "AimFov") iss >> AimControl::AimFov;
                 else if (key == "FovLineSize") iss >> MenuConfig::FovLineSize;
                 else if (key == "AimBotHotKey") { iss >> MenuConfig::AimBotHotKey; AimControl::SetHotKey(MenuConfig::AimBotHotKey); }
                 else if (key == "ShowLineToEnemy") iss >> MenuConfig::ShowLineToEnemy;
-                else if (key == "RCSScale.x") iss >> AimControl::RCSScale.x;
-                else if (key == "RCSScale.y") iss >> AimControl::RCSScale.y;
                 else if (key == "ShowWeaponESP") iss >> MenuConfig::ShowWeaponESP;
                 else if (key == "ShowDistance") iss >> MenuConfig::ShowDistance;
                 else if (key == "Smooth") iss >> AimControl::Smooth;

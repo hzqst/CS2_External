@@ -4,12 +4,6 @@
 #include "Bone.h"
 #include "Globals.hpp"
 
-struct C_UTL_VECTOR
-{
-	DWORD64 Count = 0;
-	DWORD64 Data = 0;
-};
-
 class PlayerController
 {
 public:
@@ -43,8 +37,6 @@ public:
 	Vec2 ScreenPos;
 	std::string WeaponName;
 	DWORD ShotsFired;
-	Vec2 AimPunchAngle;
-	C_UTL_VECTOR AimPunchCache;
 	int m_iHealth;
 	int m_iTeamNum;
 	int Fov;
@@ -55,13 +47,11 @@ public:
 	bool GetViewAngle();
 	bool GetWeaponName();
 	bool GetShotsFired();
-	bool GetAimPunchAngle();
 	bool GetHealth();
 	bool GetTeamID();
 	bool GetFov();
 	bool GetSpottedMask();
 	bool GetFFlags();
-	//bool GetAimPunchCache();
 
 	constexpr bool HasFlag(const Flags Flag) const noexcept {
 		return m_fFlags & (int)Flag;

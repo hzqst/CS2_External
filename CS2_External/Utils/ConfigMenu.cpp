@@ -121,12 +121,10 @@ namespace ConfigMenu {
 		MenuConfig::ShowLineToEnemy = false;
 		MenuConfig::FovLineSize = 60.0f;
 		TriggerBot::TriggerDelay = 90;
-		AimControl::RCSBullet = 1;
 		MenuConfig::TriggerHotKey = 0;
 		TriggerBot::SetHotKey(MenuConfig::TriggerHotKey);
 		MenuConfig::TriggerMode = 0;
 		TriggerBot::SetMode(MenuConfig::TriggerMode);//TriggerMode
-		AimControl::RCSScale = ImVec2(1.2f, 1.4f);
 		MenuConfig::FovLineColor = ImVec4(55, 55, 55, 220);
 		MenuConfig::LineToEnemyColor = ImVec4(255, 255, 255, 220);
 		MenuConfig::ShowCrossHair = true;

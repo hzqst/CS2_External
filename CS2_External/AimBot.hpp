@@ -10,8 +10,6 @@ namespace AimControl
 	inline int HotKey = VK_LBUTTON;
 	inline float AimFov = 5;
 	inline float Smooth = 0.7;
-	inline Vec2 RCSScale = { 1.f,1.f };
-	inline int RCSBullet = 1;
 	inline std::vector<int> HotKeyList{VK_LBUTTON, VK_LMENU, VK_RBUTTON, VK_XBUTTON1, VK_XBUTTON2, VK_CAPITAL, VK_LSHIFT, VK_LCONTROL};// added new button VK_LBUTTON
 
 	inline void SetHotKey(int Index)
@@ -37,19 +35,6 @@ namespace AimControl
 
 		Yaw = Yaw * (1 - Smooth) + Local.Pawn.ViewAngle.y;
 		Pitch = Pitch * (1 - Smooth) + Local.Pawn.ViewAngle.x;
-
-		// Recoil control
-		if (Local.Pawn.ShotsFired > RCSBullet)
-		{
-			Vec2 PunchAngle;
-			if (Local.Pawn.AimPunchCache.Count <= 0 && Local.Pawn.AimPunchCache.Count > 0xFFFF)
-				return;
-			if (!ProcessMgr.ReadMemory<Vec2>(Local.Pawn.AimPunchCache.Data + (Local.Pawn.AimPunchCache.Count - 1) * sizeof(Vec3), PunchAngle))
-				return;
-
-			Yaw = Yaw - PunchAngle.y * RCSScale.x;
-			Pitch = Pitch - PunchAngle.x * RCSScale.y;
-		}
 
 		gGame.SetViewAngle(Yaw, Pitch);
 	}
