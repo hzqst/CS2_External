@@ -11,6 +11,7 @@ bool CGame::InitAddress()
 	this->Address.LocalPawn = GetClientDLLAddress() + Offset::LocalPlayerPawn;
 	this->Address.ForceJump = 0;// GetClientDLLAddress() + Offset::ForceJump;
 	this->Address.GlobalVars = GetClientDLLAddress() + Offset::GlobalVars;
+	this->Address.Sensitivity = GetClientDLLAddress() + Offset::Sensitivity;
 
 	return this->Address.ClientDLL != 0;
 }
@@ -58,6 +59,11 @@ DWORD64 CGame::GetLocalPawnAddress()
 DWORD64 CGame::GetGlobalVarsAddress()
 {
 	return this->Address.GlobalVars;
+}
+
+DWORD64 CGame::GetSensitivityAddress()
+{
+	return this->Address.Sensitivity;
 }
 
 bool CGame::UpdateEntityListEntry()

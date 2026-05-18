@@ -42,6 +42,9 @@ namespace Offset
 	const DWORD LocalPlayerPawn = cs2_dumper::offsets::client_dll::dwLocalPlayerPawn;
 	inline DWORD ForceJump;
 	const DWORD GlobalVars = cs2_dumper::offsets::client_dll::dwGlobalVars;
+	// Pointer to the live `sensitivity` convar object; the float lives at +0x58.
+	const DWORD Sensitivity = cs2_dumper::offsets::client_dll::dwSensitivity;
+	const DWORD Sensitivity_Value = cs2_dumper::offsets::client_dll::dwSensitivity_sensitivity;
 
 	struct
 	{
@@ -73,6 +76,7 @@ namespace Offset
 		DWORD m_flFlashDuration = cs2_dumper::schemas::client_dll::C_CSPlayerPawnBase::m_flFlashDuration;
 		DWORD m_iIDEntIndex = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_iIDEntIndex;
 		DWORD m_pCameraServices = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_pCameraServices;
+		DWORD m_flFOVSensitivityAdjust = cs2_dumper::schemas::client_dll::C_BasePlayerPawn::m_flFOVSensitivityAdjust;
 		DWORD m_iFovStart = cs2_dumper::schemas::client_dll::CCSPlayerBase_CameraServices::m_iFOVStart;
 		DWORD m_fFlags = cs2_dumper::schemas::client_dll::C_BaseEntity::m_fFlags;
 		DWORD m_bSpotted = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_entitySpottedState + cs2_dumper::schemas::client_dll::EntitySpottedState_t::m_bSpotted;

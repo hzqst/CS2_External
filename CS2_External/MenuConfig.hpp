@@ -24,6 +24,7 @@ namespace MenuConfig
 	inline ImColor AimFovRangeColor = ImColor(230, 230, 230, 255);
 	inline DWORD  AimPositionIndex = BONEINDEX::HEAD;
 	inline bool VisibleCheck = true;
+	inline bool LegitInput = true;//use SendInput instead of WriteMemory
 	// 0: normal 1: dynamic
 	inline int  BoxType = 0;
 	// 0: Vertical 1: Horizontal

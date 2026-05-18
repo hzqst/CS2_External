@@ -105,6 +105,9 @@ void Cheats::Menu()
 				}
 			}
 			Gui.MyCheckBox("VisibleCheck", &MenuConfig::VisibleCheck);
+
+			//use SendInput instead of WriteMemory
+			Gui.MyCheckBox("LegitInput", &MenuConfig::LegitInput);
 		
 			ImGui::EndTabItem();
 		}
