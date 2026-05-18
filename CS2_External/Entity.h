@@ -41,7 +41,6 @@ public:
 	Vec2 ViewAngle;
 	Vec3 m_vOldOrigin;
 	Vec2 ScreenPos;
-	Vec3 CameraPos;
 	std::string WeaponName;
 	DWORD ShotsFired;
 	Vec2 AimPunchAngle;
@@ -54,7 +53,6 @@ public:
 public:
 	bool GetPos();
 	bool GetViewAngle();
-	bool GetCameraPos();
 	bool GetWeaponName();
 	bool GetShotsFired();
 	bool GetAimPunchAngle();

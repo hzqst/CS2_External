@@ -458,7 +458,7 @@ void Cheats::Run()
 	{
 		if (AimPos != Vec3(0, 0, 0))
 		{
-			AimControl::AimBot(LocalEntity, LocalEntity.Pawn.CameraPos, AimPos);
+			AimControl::AimBot(LocalEntity, gGame.View.Origin, AimPos);
 		}
 	}
 }
