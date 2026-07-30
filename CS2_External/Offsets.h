@@ -7,37 +7,11 @@
 // From: https://github.com/a2x/cs2-dumper/blob/main/output/client_dll.hpp
 namespace Offset
 {
-
-	namespace Signatures
-	{
-		const std::string GlobalVars = "48 89 15 ?? ?? ?? ?? 48 89 42";
-		const std::string ViewMatrix = "48 8D 0D ?? ?? ?? ?? 48 C1 E0 06";
-
-		/*
-			}
-			if ( !strcmp("bot_takeover", v4) )
-			{
-			  v61 = sub_1807AA730(a2, "p");
-			  v65 = *(float *)&v61;
-			  v62 = sub_1807AA730(a2, "y");
-			  v66 = *(float *)&v62;
-			  v63 = sub_1807AA730(a2, "r");
-			  LODWORD(v67) = LODWORD(v63);
-			  sub_1807995A0(ClientInput, 0LL, &v65);
-			}
-		*/
-
-		const std::string ClientInput = "48 8B 0D ?? ?? ?? ?? 4C 8D 44 24 40 33 D2 F3 0F";
-		const size_t ClientInput_ViewAngle = 0x688;
-
-		const std::string EntityList = "48 8B 0D ?? ?? ?? ?? 48 89 7C 24 ?? 8B FA C1";
-		const std::string LocalPlayerController = "48 8B 15 ?? ?? ?? ?? 48 85 D2 74 ?? 8B 92 B4 06 00 00";
-		const std::string ForceJump = "48 8B 05 ?? ?? ?? ?? 48 8D 1D ?? ?? ?? ?? 48 89 45";
-	}
+	const size_t ClientInput_ViewAngle = 0x688;// CS2_VibeSignatures: client.dll -> CClientInput_m_viewangles
 
 	const DWORD EntityList = cs2_dumper::offsets::client_dll::dwEntityList;
 	const DWORD Matrix = cs2_dumper::offsets::client_dll::dwViewMatrix;
-	const DWORD ViewAngle = cs2_dumper::offsets::client_dll::dwCSGOInput + Signatures::ClientInput_ViewAngle;
+	const DWORD ViewAngle = cs2_dumper::offsets::client_dll::dwCSGOInput + ClientInput_ViewAngle;
 	const DWORD LocalPlayerController = cs2_dumper::offsets::client_dll::dwLocalPlayerController;
 	const DWORD LocalPlayerPawn = cs2_dumper::offsets::client_dll::dwLocalPlayerPawn;
 	inline DWORD ForceJump;
@@ -65,7 +39,7 @@ namespace Offset
 		// CSkeletonInstance derives from CGameSceneNode; the bone-matrix cache sits at
 		// m_modelState + 0x80 (the matrix array inside CModelState). Hardcoding 0x210
 		// breaks whenever the game shifts m_modelState — pull it from cs2-dumper.
-		DWORD BoneArray = cs2_dumper::schemas::client_dll::CSkeletonInstance::m_modelState + 0x80;// 0x80 = CModelState::m_simulationState
+		DWORD BoneArray = 0x1C0; // CS2_VibeSignatures: client.dll -> CSkeletonInstance_m_modelState_m_simulationState
 		DWORD m_angEyeAngles = cs2_dumper::schemas::client_dll::C_CSPlayerPawn::m_angEyeAngles;
 		// m_vecLastClipCameraPos was removed from the schema; the local camera
 		// origin is now sourced from the CViewRender singleton (see CView).
