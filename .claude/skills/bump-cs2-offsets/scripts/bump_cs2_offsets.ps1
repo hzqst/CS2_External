@@ -108,7 +108,7 @@ if (-not $SkipSubmodule) {
 # ---------------------------------------------------------------------------
 Write-Host "==> [2/3] Fetching newest CS2_VibeSignatures snapshot" -ForegroundColor Cyan
 $idx = Invoke-RestMethod -Uri $IndexUrl
-$latest = $idx.versions | Sort-Object lastPublishTime -Descending | Select-Object -First 1
+$latest = $idx.versions[0]
 $snapUrl = $SnapshotBase + $latest.url
 Write-Host "    gameVersion: $($latest.gameVersion)  lastPublish: $($latest.lastPublishTime)  sha256: $($latest.sha256)"
 if (-not $DryRun) { Write-Host "    snapshot: $snapUrl" }

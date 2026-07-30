@@ -45,10 +45,10 @@ The skill only edits lines whose **existing** comment matches this shape:
 
 ## Snapshot data model (for reference)
 - Index JSON: `https://hlnd2t.github.io/CS2_VibeSignatures/gamesymbols/index.json`
-  - `versions[]` is a list of snapshots; each has `gameVersion`, `url` (relative
-    filename), `sha256`, `size`, and `lastPublishTime` (ISO-8601 UTC).
-  - The newest snapshot is the entry with the **largest `lastPublishTime`**.
-    Do not sort by `gameVersion` — it can carry letter suffixes (e.g. `14168b`).
+  - `versions[]` is a list of snapshots ordered newest-first; each has
+    `gameVersion`, `url` (relative filename), `sha256`, `size`, and
+    `lastPublishTime` (ISO-8601 UTC).
+  - The newest snapshot is **`versions[0]`** (index order — do not re-sort).
 - Snapshot JSON: `https://hlnd2t.github.io/CS2_VibeSignatures/gamesymbols/<url>`
   - `records[]`: each record has `module`, `artifact`, `symbolName`, `platform`,
     `kind`, and `payload`. For offsets we only care about records where
@@ -105,7 +105,7 @@ The script prints, in order:
 2. **Fetch the newest snapshot URL**:
    ```powershell
    $idx = Invoke-RestMethod 'https://hlnd2t.github.io/CS2_VibeSignatures/gamesymbols/index.json'
-   $latest = $idx.versions | Sort-Object lastPublishTime -Descending | Select-Object -First 1
+   $latest = $idx.versions[0]
    $snap = Invoke-RestMethod ("https://hlnd2t.github.io/CS2_VibeSignatures/gamesymbols/" + $latest.url)
    ```
 3. **Build the artifact -> offset map** and patch the matching lines in
@@ -129,5 +129,5 @@ The script prints, in order:
 - **Marker not in snapshot**: the symbol was renamed or dropped upstream. Leave
   the line as-is and surface it in the report for a human decision — do not
   guess a replacement offset.
-- **`gameVersion` suffix letters**: never numerically sort `gameVersion`. Always
-  pick the newest snapshot by `lastPublishTime`.
+- **Index reordering**: always trust that `versions[0]` is the newest entry as
+  published. Do not apply secondary sorting.
